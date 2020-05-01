@@ -1,12 +1,14 @@
 DNS Providers for Caddy (deprecated)
 ====================================
 
-This module gives Caddy the ability to solve the ACME DNS challenge with over 75 DNS providers.
+This one module gives Caddy the ability to solve the ACME DNS challenge with over 75 DNS providers.
 
 
 ## ⚠️ This module is deprecated
 
 These DNS providers are implemented by [go-acme/lego](https://github.com/go-acme/lego) which uses an old API that is no longer supported by Caddy. As such, this module is a temporary shim until a sufficient number of providers are ported to the [new `libdns` interfaces](https://github.com/libdns/libdns).
+
+You can use this module to get up and running quickly with your provider of choice, but instead of using this module long-term, please consider [contributing to a libdns package](https://github.com/libdns/libdns/wiki/Implementing-providers) for your provider instead.
 
 The `libdns` implementations offer better performance, lighter dependencies, easier maintainability with growth, and more flexible configuration.
 
