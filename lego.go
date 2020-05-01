@@ -15,6 +15,12 @@ func init() {
 // be configured via environment variables, they do not support
 // cancellation in the case of frequent config changes.
 //
+// Even though this module is in the dns.providers namespace, it
+// is only a special case for solving ACME challenges, intended to
+// replace the modules that used to be in the now-defunct tls.dns
+// namespace. Using it in other places of the Caddy config will
+// result in errors.
+//
 // This module will eventually go away in favor of the modules that
 // make use of the libdns APIs: https://github.com/libdns
 type LegoDeprecated struct {
@@ -26,7 +32,7 @@ type LegoDeprecated struct {
 // CaddyModule returns the Caddy module information.
 func (LegoDeprecated) CaddyModule() caddy.ModuleInfo {
 	return caddy.ModuleInfo{
-		ID:  "tls.dns.lego_deprecated",
+		ID:  "dns.providers.lego_deprecated",
 		New: func() caddy.Module { return new(LegoDeprecated) },
 	}
 }
