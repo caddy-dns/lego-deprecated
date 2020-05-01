@@ -6,7 +6,7 @@ This one module gives Caddy the ability to solve the ACME DNS challenge with ove
 
 ## ⚠️ This module is deprecated
 
-These DNS providers are implemented by [go-acme/lego](https://github.com/go-acme/lego) which uses an old API that is no longer supported by Caddy. As such, this module is a temporary shim until a sufficient number of providers are ported to the [new `libdns` interfaces](https://github.com/libdns/libdns).
+This module wraps DNS providers that are implemented by [go-acme/lego](https://github.com/go-acme/lego) which uses an old API that is no longer supported by Caddy. As such, this module is a temporary shim until a sufficient number of providers are ported to the [new `libdns` interfaces](https://github.com/libdns/libdns).
 
 You can use this module to get up and running quickly with your provider of choice, but instead of using this module long-term, please consider [contributing to a libdns package](https://github.com/libdns/libdns/wiki/Implementing-providers) for your provider instead.
 
@@ -19,7 +19,7 @@ First, [make sure Caddy is built with this module installed](https://github.com/
 
 Then [find the documentation for your DNS provider](https://go-acme.github.io/lego/dns/).
 
-Next, configure [the ACME issuer in your Caddy JSON](https://caddyserver.com/docs/json/apps/tls/automation/policies/issuer/acme/):
+Next, configure [the ACME issuer in your Caddy JSON](https://caddyserver.com/docs/json/apps/tls/automation/policies/issuer/acme/) like so:
 
 ```
 {
@@ -36,6 +36,16 @@ Next, configure [the ACME issuer in your Caddy JSON](https://caddyserver.com/doc
 and replace `<provider_code>` with the name of your provider, as given in the docs linked above.
 
 Your provider's credentials and other settings are configured via environment variables, which are also described in the docs linked above.
+
+You can also use this with the Caddyfile:
+
+```
+tls {
+	dns lego_deprecated <provider_code>
+}
+```
+
+and replace `<provider_code>` with the name of your provider.
 
 
 
