@@ -56,3 +56,6 @@ func (ld LegoDeprecated) Present(domain, token, keyAuth string) error {
 func (ld LegoDeprecated) CleanUp(domain, token, keyAuth string) error {
 	return ld.prov.CleanUp(domain, token, keyAuth)
 }
+
+// Interface guard
+var _ challenge.Provider = (*LegoDeprecated)(nil)
