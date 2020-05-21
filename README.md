@@ -15,7 +15,11 @@ The `libdns` implementations offer better performance, lighter dependencies, eas
 
 ## Instructions
 
-First, [make sure Caddy is built with this module installed](https://github.com/caddyserver/caddy/#with-version-information-andor-plugins).
+First, [make sure Caddy is built with this module installed](https://github.com/caddyserver/caddy/#with-version-information-andor-plugins). This is [easiest with xcaddy](https://github.com/caddyserver/xcaddy):
+
+```
+$ xcaddy build --with github.com/caddy-dns/lego-deprecated
+```
 
 Then [find the documentation for your DNS provider](https://go-acme.github.io/lego/dns/).
 
@@ -24,10 +28,12 @@ Next, configure [the ACME issuer in your Caddy JSON](https://caddyserver.com/doc
 ```
 {
 	"module": "acme",
-	"dns": {
-		"provider": {
-			"name": "lego_deprecated",
-			"provider_name": "<provider_code>"
+	"challenges": {
+		"dns": {
+			"provider": {
+				"name": "lego_deprecated",
+				"provider_name": "<provider_code>"
+			}
 		}
 	}
 }
