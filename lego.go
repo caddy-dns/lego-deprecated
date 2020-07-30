@@ -1,9 +1,14 @@
 package legodeprecated
 
 import (
+	"context"
+	"time"
+
 	"github.com/caddyserver/caddy/v2"
 	"github.com/go-acme/lego/v3/challenge"
 	"github.com/go-acme/lego/v3/providers/dns"
+	"github.com/mholt/acmez"
+	"github.com/mholt/acmez/acme"
 )
 
 func init() {
@@ -47,15 +52,41 @@ func (ld *LegoDeprecated) Provision(ctx caddy.Context) error {
 	return nil
 }
 
-// Present wraps the challenge.Provider interface.
-func (ld LegoDeprecated) Present(domain, token, keyAuth string) error {
-	return ld.prov.Present(domain, token, keyAuth)
+// Present wraps the go-acme/lego/v3/challenge.Provider interface
+// with the certmagic.ACMEDNSProvider interface. Normally, DNS providers
+// in the caddy-dns repositories would implement the libdns interfaces
+// (https://github.com/libdns/libdns) instead, but this module is a
+// special case to give time for more DNS providers to be ported over
+// to the libdns interfaces from the deprecated lego interface.
+func (ld LegoDeprecated) Present(_ context.Context, challenge acme.Challenge) error {
+	return ld.prov.Present(challenge.Identifier.Value, challenge.Token, challenge.KeyAuthorization)
 }
 
-// CleanUp wraps the challenge.Provider interface.
-func (ld LegoDeprecated) CleanUp(domain, token, keyAuth string) error {
-	return ld.prov.CleanUp(domain, token, keyAuth)
+// Wait waits just a few seconds before proceeding. We don't have a clean way of
+// doing true propagation polling from this layer of abstraction, unfortunately.
+// If there is a way to do that with lego v3, then I don't know what it is.
+func (LegoDeprecated) Wait(ctx context.Context, challenge acme.Challenge) error {
+	select {
+	case <-time.After(5 * time.Second):
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+	return nil
+}
+
+// CleanUp wraps the go-acme/lego/v3/challenge.Provider interface
+// with the acmez.Solver interface. Normally, DNS providers
+// in the caddy-dns repositories would implement the libdns interfaces
+// (https://github.com/libdns/libdns) instead, but this module is a
+// special case to give time for more DNS providers to be ported over
+// to the libdns interfaces from the deprecated lego interface.
+func (ld LegoDeprecated) CleanUp(_ context.Context, challenge acme.Challenge) error {
+	return ld.prov.CleanUp(challenge.Identifier.Value, challenge.Token, challenge.KeyAuthorization)
+}
+
+type preSolver interface {
+	PreSolve(ctx context.Context, authorization acme.Authorization) error
 }
 
 // Interface guard
-var _ challenge.Provider = (*LegoDeprecated)(nil)
+var _ acmez.Solver = (*LegoDeprecated)(nil)
