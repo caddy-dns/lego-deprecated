@@ -84,9 +84,5 @@ func (ld LegoDeprecated) CleanUp(_ context.Context, challenge acme.Challenge) er
 	return ld.prov.CleanUp(challenge.Identifier.Value, challenge.Token, challenge.KeyAuthorization)
 }
 
-type preSolver interface {
-	PreSolve(ctx context.Context, authorization acme.Authorization) error
-}
-
 // Interface guard
 var _ acmez.Solver = (*LegoDeprecated)(nil)
