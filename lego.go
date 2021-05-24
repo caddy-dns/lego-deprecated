@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/caddyserver/caddy/v2"
-	"github.com/go-acme/lego/v3/challenge"
-	"github.com/go-acme/lego/v3/providers/dns"
+	"github.com/go-acme/lego/v4/challenge"
+	"github.com/go-acme/lego/v4/providers/dns"
 	"github.com/mholt/acmez"
 	"github.com/mholt/acmez/acme"
 )
@@ -52,7 +52,7 @@ func (ld *LegoDeprecated) Provision(ctx caddy.Context) error {
 	return nil
 }
 
-// Present wraps the go-acme/lego/v3/challenge.Provider interface
+// Present wraps the go-acme/lego/v4/challenge.Provider interface
 // with the certmagic.ACMEDNSProvider interface. Normally, DNS providers
 // in the caddy-dns repositories would implement the libdns interfaces
 // (https://github.com/libdns/libdns) instead, but this module is a
@@ -64,17 +64,17 @@ func (ld LegoDeprecated) Present(_ context.Context, challenge acme.Challenge) er
 
 // Wait waits just a few seconds before proceeding. We don't have a clean way of
 // doing true propagation polling from this layer of abstraction, unfortunately.
-// If there is a way to do that with lego v3, then I don't know what it is.
+// If there is a way to do that with lego v4, then I don't know what it is.
 func (LegoDeprecated) Wait(ctx context.Context, challenge acme.Challenge) error {
 	select {
-	case <-time.After(5 * time.Second):
+	case <-time.After(10 * time.Second):
 	case <-ctx.Done():
 		return ctx.Err()
 	}
 	return nil
 }
 
-// CleanUp wraps the go-acme/lego/v3/challenge.Provider interface
+// CleanUp wraps the go-acme/lego/v4/challenge.Provider interface
 // with the acmez.Solver interface. Normally, DNS providers
 // in the caddy-dns repositories would implement the libdns interfaces
 // (https://github.com/libdns/libdns) instead, but this module is a
