@@ -15,45 +15,35 @@ The `libdns` implementations offer better performance, lighter dependencies, eas
 
 ## Instructions
 
-First, [make sure Caddy is built with this module installed](https://github.com/caddyserver/caddy/#with-version-information-andor-plugins). This is [easiest with xcaddy](https://github.com/caddyserver/xcaddy):
-
-```
-$ xcaddy build --with github.com/caddy-dns/lego-deprecated
-```
-
-Then [find the documentation for your DNS provider](https://go-acme.github.io/lego/dns/).
-
-Next, configure [the ACME issuer in your Caddy JSON](https://caddyserver.com/docs/json/apps/tls/automation/policies/issuer/acme/) like so:
-
-```
-{
-	"module": "acme",
-	"challenges": {
-		"dns": {
-			"provider": {
-				"name": "lego_deprecated",
-				"provider_name": "<provider_code>"
-			}
-		}
-	}
-}
-```
-
-and replace `<provider_code>` with the name of your provider, as given in the docs linked above.
-
-Your provider's credentials and other settings are configured via environment variables, which are also described in the docs linked above.
-
-You can also use this with the Caddyfile:
-
-```
-tls {
-	dns lego_deprecated <provider_code>
-}
-```
-
-and replace `<provider_code>` with the name of your provider.
-
-
+1. Make sure you either [download](https://caddyserver.com/download?package=github.com%2Fcaddy-dns%2Flego-deprecated) or [build](https://github.com/caddyserver/caddy/#with-version-information-andor-plugins) (i.e. with [xcaddy](https://github.com/caddyserver/xcaddy)) Caddy with this module installed:
+   - Download: <https://caddyserver.com/download?package=github.com%2Fcaddy-dns%2Flego-deprecated>
+   - Build:
+     ```bash
+     xcaddy build --with github.com/caddy-dns/lego-deprecated
+     ```
+2. Find your **DNS Provider** and **provider code**, in the [lego DNS documentation](https://go-acme.github.io/lego/dns/)
+3. You will need to set the lego provider's **credentials** and **other ENVs**, such as `CLOUDFLARE_API_KEY=xxxxxxxx`, in your environment configuration
+4. Configure the ACME issuer in your [Caddy JSON](https://caddyserver.com/docs/json/apps/tls/automation/policies/issuer/acme/) or `Caddyfile` like so:
+   ```json
+   {
+   	"module": "acme",
+   	"challenges": {
+   		"dns": {
+   			"provider": {
+   				"name": "lego_deprecated",
+   				"provider_name": "<provider_code>"
+   			}
+   		}
+   	}
+   }
+   ```
+   or
+   ```caddy
+   tls {
+   	dns lego_deprecated <provider_code>
+   }
+   ```
+5. (don't forget to replace `<provider_code>` with the name of [your provider](https://go-acme.github.io/lego/dns/), such as `cloudflare` or `dnsimple`)
 
 ## Compatibility note
 
