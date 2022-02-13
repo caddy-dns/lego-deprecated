@@ -15,15 +15,21 @@ The `libdns` implementations offer better performance, lighter dependencies, eas
 
 ## Instructions
 
-1. Make sure you either [download](https://caddyserver.com/download?package=github.com%2Fcaddy-dns%2Flego-deprecated) or [build](https://github.com/caddyserver/caddy/#with-version-information-andor-plugins) (i.e. with [xcaddy](https://github.com/caddyserver/xcaddy)) Caddy with this module installed:
-   - Download: <https://caddyserver.com/download?package=github.com%2Fcaddy-dns%2Flego-deprecated>
-   - Build:
+1. Get Caddy with the `lego-deprecated` plugin installed
+   - Pre-Built Download: \
+     <https://caddyserver.com/download?package=github.com%2Fcaddy-dns%2Flego-deprecated>
+   - Build with [xcaddy](https://github.com/caddyserver/xcaddy):
      ```bash
      xcaddy build --with github.com/caddy-dns/lego-deprecated
      ```
-2. Find your **DNS Provider** and **provider code**, in the [lego DNS documentation](https://go-acme.github.io/lego/dns/)
-3. You will need to set the lego provider's **credentials** and **other ENVs**, such as `CLOUDFLARE_API_KEY=xxxxxxxx`, in your environment configuration
-4. Configure the ACME issuer in your [Caddy JSON](https://caddyserver.com/docs/json/apps/tls/automation/policies/issuer/acme/) or `Caddyfile` like so:
+   - Build manually: \
+     https://github.com/caddyserver/caddy/#with-version-information-andor-plugins
+2. Find your **DNS Provider** and **provider code**, in the [lego DNS](https://go-acme.github.io/lego/dns/) documentation
+   - Example: CloudFlare is `cloudflare`, DNSimple is `dnsimple`
+4. Set the lego provider's **credentials** and **other ENVs** in your environment configuration
+   - Example: `CLOUDFLARE_API_KEY=xxxxxxxx`
+6. Configure the ACME issuer \
+   via [Caddy JSON](https://caddyserver.com/docs/json/apps/tls/automation/policies/issuer/acme/)
    ```json
    {
    	"module": "acme",
@@ -37,7 +43,7 @@ The `libdns` implementations offer better performance, lighter dependencies, eas
    	}
    }
    ```
-   or
+   or `Caddyfile`
    ```caddy
    tls {
    	dns lego_deprecated <provider_code>
