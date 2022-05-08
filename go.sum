@@ -231,6 +231,8 @@ github.com/ghodss/yaml v1.0.0/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeME
 github.com/gliderlabs/ssh v0.1.1/go.mod h1:U7qILu1NlMHj9FlMhZLlkCdDnU1DBEAqr0aevW3Awn0=
 github.com/go-acme/lego/v4 v4.3.1 h1:rzmg0Gpy25B/exXjl+KgpG5Xt6wN5rFTLjRf/Uf3pfg=
 github.com/go-acme/lego/v4 v4.3.1/go.mod h1:tySA24ifl6bI7kZ0+ocGtTIv4H1yhYVFAgyMHF2DSRg=
+github.com/go-acme/lego/v4 v4.6.0 h1:w1rQtE/YHY5SupCTRpRJQbaZ6bkySJJ0z+kl8p6pVJU=
+github.com/go-acme/lego/v4 v4.6.0/go.mod h1:v19/zU0bumGNzvsbx07zQ6c9IxAvy55XIKhXCZio3NQ=
 github.com/go-chi/chi v4.0.2+incompatible/go.mod h1:eB3wogJHnLi3x/kFX2A+IbTBlXxmMeXJVKy9tTv1XzQ=
 github.com/go-chi/chi v4.1.2+incompatible/go.mod h1:eB3wogJHnLi3x/kFX2A+IbTBlXxmMeXJVKy9tTv1XzQ=
 github.com/go-cmd/cmd v1.0.5/go.mod h1:y8q8qlK5wQibcw63djSl/ntiHUHXHGdCkPk0j4QeW4s=
