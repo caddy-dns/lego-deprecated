@@ -15,7 +15,7 @@ require (
 	github.com/deepmap/oapi-codegen v1.11.0 // indirect
 	github.com/dnsimple/dnsimple-go v1.0.0 // indirect
 	github.com/exoscale/egoscale v0.90.2 // indirect
-	github.com/go-acme/lego/v4 v4.9.0
+	github.com/go-acme/lego/v4 v4.9.1
 	github.com/go-errors/errors v1.4.2 // indirect
 	github.com/go-resty/resty/v2 v2.7.0 // indirect
 	github.com/golang-jwt/jwt/v4 v4.4.2 // indirect
